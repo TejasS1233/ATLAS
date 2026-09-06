@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+data/brats20/
+data/*.zip
+*.zip
+checkpoints/*.pth
+.ipynb_checkpoints/

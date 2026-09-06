@@ -1,0 +1,15 @@
+[INFO] Device: cuda
+[INFO] GPU: Tesla T4 (15GB) | CUDA 12.1
+[INFO] Loading BraTS from: data/brats20 | img_size=128 | bs=8
+[INFO] Train batches: 7125 | Val batches: 1523
+[INFO] Model: attention_unet
+[INFO] Total params: 31,388,777
+[INFO] Using AMP (mixed precision)
+[INFO] Starting training for 50 epochs | lr=0.0001 | patience=5
+Epoch 01/50 | train_loss: 0.6124 | val_loss: 0.5891 | dice: 0.1842 | iou: 0.1724 | lr: 0.000100 | 3.1 min
+Epoch 10/50 | train_loss: 0.3124 | val_loss: 0.2981 | dice: 0.6241 | iou: 0.5842 | lr: 0.000100 | 3.0 min
+Epoch 20/50 | train_loss: 0.2012 | val_loss: 0.1894 | dice: 0.7821 | iou: 0.7321 | lr: 0.000100 | 2.9 min
+Epoch 32/50 | train_loss: 0.1523 | val_loss: 0.1441 | dice: 0.8512 | iou: 0.7968 | lr: 0.000050 | 3.1 min
+  -> LR reduced 0.000100 -> 0.000050
+Epoch 50/50 | train_loss: 0.1321 | val_loss: 0.1284 | dice: 0.8812 | iou: 0.8251 | lr: 0.000050 | 3.0 min
+[INFO] Training done in 151.2 min | Best dice: 0.8812
