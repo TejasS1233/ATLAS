@@ -14,10 +14,19 @@ Automatic segmentation of brain tumors from MRI scans using U-Net architecture. 
 3. Heavy augmentation (Albumentations): elastic transform, flips, rotation
 4. Ablation study comparing 3 architectures: U-Net vs Attention U-Net vs U-Net++
 
+### What This Project Does Differently (vs vanilla U-Net / standard BraTS baselines)
+- **Attention gates on every skip connection** (`src/model.py:20`): filters encoder features with decoder gating signal before concatenation, so the network suppresses healthy brain tissue and focuses on tumor boundaries. Vanilla U-Net concatenates raw skip features.
+- **Regularized DoubleConv blocks** (`src/model.py:5`): Conv-BN-ReLU-Dropout2d(0.2)-Conv-BN-ReLU instead of plain Conv-ReLU, reducing overfitting on small tumor regions.
+- **Combo loss, not plain BCE/Dice** (`src/utils.py:15`): `DiceFocalLoss(dice_weight=0.6, alpha=0.25, gamma=2.0)` — Dice handles the ~2% tumor-pixel imbalance, focal-weighted BCE forces hard/boundary pixels to matter more.
+- **4-modality stacked input** (`src/model.py:40`): FLAIR+T1+T1ce+T2 as 4 channels → 1-channel sigmoid mask, with per-channel resize to 128×128 and slice-wise 2D training (155 slices/volume → ~57k images) instead of slow 3D volumes.
+- **Aggressive Albumentations pipeline** (`src/dataset.py:58`): HorizontalFlip + VerticalFlip + RandomRotate90 + ShiftScaleRotate + ElasticTransform — most tutorials use only flips.
+- **Training tuned for Dice, not loss** (`src/train.py:122,149`): `ReduceLROnPlateau(mode='max', factor=0.5, patience=5)` stepped on val Dice, Adam (lr 1e-4, weight_decay 1e-5), AMP mixed precision + grad-clip 1.0 for stable T4 training, early stopping (patience 12), best-checkpoint saved on Dice.
+
+
 
 ## Project Structure
 ```
-DL_sem7/
+ATLAS/
 ├── src/
 │   ├── model.py        # Attention U-Net definition
 │   ├── dataset.py      # BraTS Dataset loader + preprocessing
