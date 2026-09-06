@@ -1,6 +1,5 @@
 # Brain Tumor Segmentation using U-Net | BraTS 2020
 
-
 ## Overview
 Automatic segmentation of brain tumors from MRI scans using U-Net architecture. Trained on BraTS 2020 dataset (369 patients, 4 MRI modalities: FLAIR, T1, T1ce, T2).
 
@@ -15,10 +14,6 @@ Automatic segmentation of brain tumors from MRI scans using U-Net architecture. 
 3. Heavy augmentation (Albumentations): elastic transform, flips, rotation
 4. Ablation study comparing 3 architectures: U-Net vs Attention U-Net vs U-Net++
 
-## Demo Output
-| MRI FLAIR | Ground Truth | Predicted Mask |
-|-----------|--------------|----------------|
-| (see `results/sample_predictions.png`) | | |
 
 ## Project Structure
 ```
@@ -68,11 +63,6 @@ BraTS 2020: https://www.kaggle.com/datasets/awsaf49/brats20-dataset-training-val
 | U-Net++ | 0.88 | 0.83 | 36M |
 
 Graphs in `results/` : loss curve, dice curve, confusion.
-
-## For Viva - Explain:
-- Why U-Net? Skip connections preserve spatial info lost in encoder
-- Why Dice Loss? Handles class imbalance (tumor is ~2% of image)
-- Preprocessing: Normalize per modality, crop to 128x128, slice-wise training
 
 ## References
 1. Ronneberger et al. U-Net: Convolutional Networks for Biomedical Image Segmentation (2015)
